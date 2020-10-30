@@ -14,4 +14,22 @@ module.exports = function(app) {
 
       res.json(data[Number(req.params.id)]);
     });
+
+    app.post("/api/notes", function(req, res) {
+
+      let newNote = req.body;
+      let uniqueId = (data.length).toString();
+      console.log(uniqueId);
+      newNote.id = uniqueId;
+      data.push(newNote);
+
+      fs.writeFileSync("./db/db.json", JSON.stringify(data), function(err) {
+          if (err) throw (err);
+      });
+
+      res.json(data);
+
+    })
+
+    
 }
